@@ -70,3 +70,41 @@ Oscar,Martinez,oscar@sequel.htb,oscar,86LxLBMgEWaKUnBG
 Kevin,Malone,kevin@sequel.htb,kevin,Md9Wlq1E5bZnVDVo
 NULL,NULL,sa@sequel.htb,sa,MSSQLP@ssw0rd!
 ```
+
+```names.txt
+Matthew Harrison
+Emma Miah
+Rebecca Bell
+Scott Gardner
+Terry Edwards
+Holly Matthews
+Anne Jenkins
+Brett Naylor
+Melissa Mitchell
+Craig Carr
+Fiona Clark
+Patrick Martin
+Kate Watson
+Kirsty Norris
+Andrea Hayes
+Abigail Hughes
+Melanie Watson
+Frances Ward
+Sylvia King
+Wayne Hartley
+Iain White
+Joanna Wood
+Bethan Webster
+Elaine Brady
+Christopher Lewis
+Megan Johnson
+Damien Chapman
+Joanne Lewis
+```
+
+```shell
+┌──(kali㉿kali)-[~/OSCP/Prep/28.Nagoya]
+└─$ python3 silly-username.py -i names.txt -o usernames.txt
+Processing 28 names...
+Generated 672 unique usernames to usernames.txt
+```
