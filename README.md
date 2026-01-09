@@ -52,3 +52,21 @@ Final output will be URL encoded
   Final step: URL encoding
   Output size: 0 bytes
 ```
+
+
+```shell
+┌──(kali㉿kali)-[~/OSCP/Prep/Escape-Two]
+└─$ python3 xml2csv.py accounts_extracted/xl/worksheets/sheet1.xml accounts_extracted/xl/sharedStrings.xml out.csv
+Parsing worksheet: accounts_extracted/xl/worksheets/sheet1.xml
+Using shared strings: accounts_extracted/xl/sharedStrings.xml
+CSV saved to: out.csv
+Dimensions: 5 rows × 5 columns
+```
+
+```csv
+First Name,Last Name,Email,Username,Password
+Angela,Martin,angela@sequel.htb,angela,0fwz7Q4mSpurIt99
+Oscar,Martinez,oscar@sequel.htb,oscar,86LxLBMgEWaKUnBG
+Kevin,Malone,kevin@sequel.htb,kevin,Md9Wlq1E5bZnVDVo
+NULL,NULL,sa@sequel.htb,sa,MSSQLP@ssw0rd!
+```
