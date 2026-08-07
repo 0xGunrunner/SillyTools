@@ -8,16 +8,18 @@ Usage: python3 silly-username.py --in name.txt --out username.txt
 import argparse
 import sys
 
-def generate_variations(first, last):
-    """Generate all username variations for a given first and last name."""
+def generate_variations(first, last, suffix=''):
+    """Generate all username variations for a given first and last name.
+    If suffix is provided (e.g. '01'), additional suffixed variants are included.
+    """
     variations = []
-    
+
     # Lowercase versions
     f = first.lower()
     l = last.lower()
     fi = f[0]
     li = l[0]
-    
+
     # Original case combinations
     variations.append(first + last)           # FergusSmith
     variations.append(first + "." + last)    # Fergus.Smith
@@ -28,7 +30,7 @@ def generate_variations(first, last):
     variations.append(first + last[0])       # FergusS
     variations.append(first + "." + last[0]) # Fergus.S
     variations.append(first + "_" + last[0]) # Fergus_S
-    
+
     # All lowercase combinations
     variations.append(f + l)                 # fergussmith
     variations.append(f + "." + l)           # fergus.smith
@@ -39,7 +41,7 @@ def generate_variations(first, last):
     variations.append(f + li)                # ferguss
     variations.append(f + "." + li)          # fergus.s
     variations.append(f + "_" + li)          # fergus_s
-    
+
     # Reversed combinations
     variations.append(last + first)           # SmithFergus
     variations.append(last + "." + first)     # Smith.Fergus
@@ -47,23 +49,37 @@ def generate_variations(first, last):
     variations.append(l + f)                  # smithfergus
     variations.append(l + "." + f)            # smith.fergus
     variations.append(l + "_" + f)            # smith_fergus
-    
+
+    # Suffixed variations (e.g. jsokolova01, jane.sokolova01)
+    if suffix:
+        variations.append(fi + l + suffix)         # jsokolova01
+        variations.append(f + l + suffix)          # janesokolova01
+        variations.append(f + "." + l + suffix)    # jane.sokolova01
+        variations.append(f + "_" + l + suffix)    # jane_sokolova01
+        variations.append(fi + "." + l + suffix)   # j.sokolova01
+        variations.append(fi + "_" + l + suffix)   # j_sokolova01
+        variations.append(f + li + suffix)         # janes01
+        variations.append(l + f + suffix)          # sokolovajane01
+        variations.append(l + fi + suffix)         # sokolovaj01
+
     return variations
 
 def process_names(names_list):
-    """Process a list of name tuples and return all variations."""
+    """Process a list of name tuples (first, last[, suffix]) and return all variations."""
     all_variations = []
-    
-    for first, last in names_list:
-        variations = generate_variations(first, last)
+
+    for entry in names_list:
+        first, last = entry[0], entry[1]
+        suffix = entry[2] if len(entry) > 2 else ''
+        variations = generate_variations(first, last, suffix)
         all_variations.extend(variations)
-    
+
     # Remove duplicates and sort
     unique_variations = sorted(set(all_variations))
     return unique_variations
 
 def read_names_from_file(filename):
-    """Read names from a file, expecting format: First Last"""
+    """Read names from a file, expecting format: First Last [suffix]"""
     names = []
     try:
         with open(filename, 'r') as f:
@@ -72,8 +88,12 @@ def read_names_from_file(filename):
                 if line:
                     parts = line.split()
                     if len(parts) >= 2:
-                        # Take first two parts as first and last name
-                        names.append((parts[0], parts[1]))
+                        # Take first two parts as first and last name,
+                        # any remaining parts are joined as the suffix
+                        entry = [parts[0], parts[1]]
+                        if len(parts) > 2:
+                            entry.append(''.join(parts[2:]))
+                        names.append(tuple(entry))
                     else:
                         print(f"Warning: Invalid line format: {line}", file=sys.stderr)
     except FileNotFoundError:
@@ -82,7 +102,7 @@ def read_names_from_file(filename):
     except Exception as e:
         print(f"Error reading file: {e}", file=sys.stderr)
         sys.exit(1)
-    
+
     return names
 
 def main():
